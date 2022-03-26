@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ButtonSlider from "./ButtonSlider";
 import style from "./ContainerSlider.module.css";
 import dataSlider from "./dataSlider";
 
@@ -8,6 +9,23 @@ export default function ConteneurSlider() {
   const activeSlideHandler = (slide) => {
     setSlideActive(slide);
   };
+
+  const prevSlideHandler = () => {
+    if (slideActive === 0) {
+      setSlideActive(dataSlider.length - 1);
+      return;
+    }
+    setSlideActive(slideActive - 1);
+  };
+
+  const nextSlideHandler = () => {
+    if (slideActive === dataSlider.length - 1) {
+      setSlideActive(0);
+      return;
+    }
+    setSlideActive(slideActive + 1);
+  };
+
   return (
     <div className={style.containerSlider}>
       {dataSlider.map((slide, i) => {
@@ -22,6 +40,8 @@ export default function ConteneurSlider() {
           </div>
         );
       })}
+      <ButtonSlider direction="left" moveSlide={prevSlideHandler} />
+      <ButtonSlider direction="right" moveSlide={nextSlideHandler} />
     </div>
   );
 }
